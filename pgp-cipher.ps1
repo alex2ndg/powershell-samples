@@ -13,4 +13,15 @@ Write-Host "Final File: $ffile"
 # You can remove -s flag if you don't want to sign the file (some clients would prefer it like so)
 cd $dir
 pgp --home-dir "C:\Users\my_user\PGP" -e $ofile -r $key -s --output $ffile --passphrase " "
-Remove-Item $entrada
+Remove-Item $ofile
+
+# If you want to preseve the original filename, try using something like the following loop.
+# Take for example that we want to cipher all XML files on an specific directory:
+cd $dir
+$files = Get-ChildItem $dir\*.xml
+# For all of the $files we'll save a $foutput to save the original filename w/o extension.
+ForEach ($file in $files) { 
+	$foutput = $file.Name -replace ".xml", ".xml.pgp"
+	pgp --home-dir "C:\Users\my_user\PGP" -e $ofile -r $key --output $foutput
+	Remove-Item $ofile
+}
