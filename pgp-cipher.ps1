@@ -9,7 +9,8 @@ Write-Host "Key: $key"
 Write-Host "Final File: $ffile"
 
 # You'll have to define the --home-dir just in case if the user you are using doesn't has the keyring defined properly
-# Passphrase is optional - on this sample we are using a blank space.
+# Passphrase is optional - on this sample we are using a blank space. 
+# You can remove -s flag if you don't want to sign the file (some clients would prefer it like so)
 cd $dir
 pgp --home-dir "C:\Users\my_user\PGP" -e $ofile -r $key -s --output $ffile --passphrase " "
 Remove-Item $entrada
